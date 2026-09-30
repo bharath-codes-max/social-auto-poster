@@ -1,0 +1,10 @@
+{
+  "githubRepo": "bharath-codes-max/social-auto-poster",
+  "branch": "main",
+  "postTimesIST": ["09:00", "13:30", "19:30"],
+  "channels": {
+    "linkedin": "",
+    "instagram": "",
+    "x": ""
+  }
+}

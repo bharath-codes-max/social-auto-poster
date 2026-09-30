@@ -1,0 +1,20 @@
+{
+  "id": "post-3",
+  "pillar": "founder",
+  "topic": "design-rule-fail-less-capable",
+  "text": {
+    "linkedin": "The design rule I check every Wrapbox decision against:\n\nIf Wrapbox fails, crashes or gets removed, the agent must end up less capable. Never more. And the failure must be visible.\n\nIt sounds obvious. In my view it isn't how many guardrails behave: the policy service times out, and the call goes through.\n\nSo in wrapboxd, the on-device runtime I'm building for AI coding agents:\n\n→ Decisions happen locally, from a cached ruleset. The network is never on the decision path.\n→ A kernel sandbox (macOS Seatbelt) sits under the agent. A denied read of .env or ~/.ssh fails with EPERM even if the agent never asks the hook.\n→ Every decision and every kernel denial becomes a signed receipt in a hash chain the server can verify.\n\nIt has honest limits. Seatbelt can't filter network traffic by domain, only localhost or everything. Path rules match paths, not file contents. I'd rather say that up front than oversell it.\n\nWhen the guardrails around your agents fail, do they fail open or closed? Have you actually tested it?\n\n#BuildInPublic #AISecurity #AIAgents",
+    "instagram": "The design rule behind Wrapbox:\n\nIf it fails, crashes or gets removed, the AI agent must end up less capable. Never more. And you must be able to see it happened.\n\nThat's why decisions run on the device from a cached ruleset, a kernel sandbox sits under the agent, and every decision becomes a signed receipt.\n\nBuilding this in public. Ask me anything about how it works.\n\n#buildinpublic #aisecurity #aiagents #founder #wrapbox",
+    "x": "The rule every Wrapbox design decision gets checked against:\n\nIf it fails, crashes or is removed, the agent ends up less capable. Never more. And it's visible.\n\nMost guardrails I've looked at fail open. Test yours."
+  },
+  "slides": [
+    {
+      "kind": "text",
+      "tag": "Building Wrapbox",
+      "title": "If Wrapbox fails, your agent gets **less** capable. Never more.",
+      "body": "The design rule every decision gets checked against.",
+      "alt": "Card: If Wrapbox fails, your agent gets less capable. Never more. The design rule every decision gets checked against."
+    }
+  ],
+  "sources": []
+}
