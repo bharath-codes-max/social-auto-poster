@@ -1,0 +1,20 @@
+{
+  "id": "post-3",
+  "pillar": "founder",
+  "topic": "every-rule-tested-both-directions",
+  "text": {
+    "linkedin": "A rule that only blocks the thing you tested against isn't a rule. It's a screenshot.\n\nFor Wrapbox's policy engine, our own standard is that every rule change gets checked against every effect, every agent category, every tier boundary, and a full YAML round-trip, not a single example that happens to return REVIEW.\n\nIt's tempting to stop at \"it blocked the bad command in the demo.\" That tells you the rule fires once. It doesn't tell you:\n\n→ Does the same rule still ALLOW the things it shouldn't touch?\n→ Does it hold at the edge, the command that's one character away from matching?\n→ Does a rule written in the UI produce the same YAML a rule written as YAML would produce if parsed back?\n\nA policy engine that only gets tested on its best day will pass every demo and fail the one time it actually matters.\n\nSo the rule I hold the team (currently: me) to: a change isn't done when the happy path works. It's done when you've tried to break it and couldn't.\n\n#BuildInPublic #AIGovernance #SoftwareEngineering",
+    "instagram": "A rule that only blocks the thing you tested against isn't a rule. It's a screenshot.\n\nFor Wrapbox's policy engine: every rule change gets checked against every effect, every agent category, every tier boundary, and a full YAML round-trip. Not one example that happens to work.\n\nA change isn't done when the happy path works. It's done when you've tried to break it and couldn't.\n\n#buildinpublic #aigovernance #softwareengineering #founder #wrapbox",
+    "x": "A rule that only blocks the thing you tested against isn't a rule. It's a screenshot.\n\nA policy change is done when you've tried to break it and couldn't — not when the happy path works once."
+  },
+  "slides": [
+    {
+      "kind": "text",
+      "tag": "Building Wrapbox",
+      "title": "A rule that only blocks the thing you tested is a **screenshot**, not a rule.",
+      "body": "Done means you tried to break it and couldn't — not that the happy path worked once.",
+      "alt": "Card: A rule that only blocks the thing you tested is a screenshot, not a rule. Done means you tried to break it and couldn't, not that the happy path worked once."
+    }
+  ],
+  "sources": []
+}

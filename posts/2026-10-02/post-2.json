@@ -1,0 +1,62 @@
+{
+  "id": "post-2",
+  "pillar": "governance",
+  "topic": "eu-ai-act-high-risk-delay-dec-2027",
+  "text": {
+    "linkedin": "The EU just delayed the hard part of AI regulation. One piece of it didn't move.\n\nOn 29 June 2026, the EU Council adopted the \"Digital Omnibus on AI,\" pushing back the high-risk AI obligations (Regulation (EU) 2024/1689, Articles 8–17):\n\n→ Standalone high-risk systems: 2 August 2026 → 2 December 2027\n→ High-risk AI embedded in regulated products: → 2 August 2028\n\nWhat still lands on 2 August 2026, unchanged: Article 50's transparency rules. Disclose that someone's talking to AI. Label deepfakes and synthetic content. Mark generated output as machine-made, with a grace period to December 2026 for systems already live.\n\nThe postponement isn't a cancellation. The obligations in Articles 8–17 are unchanged, only the dates moved.\n\nHere's the part I'd act on either way: every one of those delayed obligations (risk management, human oversight, technical documentation) describes a control you'd want before the deadline forces it, not after.\n\nA rule like this doesn't wait for 2027:\n\nwhen an agent's output reaches a customer or the public, a human reviews it first.\n\nRegulation moves on its own schedule. The actions it's asking for don't have to.\n\nSources: Regulation (EU) 2024/1689; Digital Omnibus on AI, adopted 29 June 2026.\n\n#AIGovernance #EUAIAct #Compliance",
+    "instagram": "The EU delayed the hard part of AI regulation. One piece didn't move.\n\n29 June 2026: the EU Council adopted the Digital Omnibus on AI, pushing high-risk AI obligations from 2 Aug 2026 to Dec 2027 (standalone) / Aug 2028 (embedded).\n\nStill landing 2 Aug 2026, unchanged: Article 50 transparency — disclose AI interaction, label deepfakes, mark generated output.\n\nThe delay isn't a cancellation. Build the oversight now; the regulation will catch up to what you already built.\n\nSources: Regulation (EU) 2024/1689, Digital Omnibus on AI.\n\n#aigovernance #euaiact #compliance #aiagents #wrapbox",
+    "x": "EU AI Act: high-risk obligations delayed from Aug 2026 to Dec 2027 / Aug 2028 (Digital Omnibus on AI, 29 June 2026).\n\nWhat didn't move: Article 50 transparency — disclose AI interaction, label deepfakes. Still 2 Aug 2026."
+  },
+  "slides": [
+    {
+      "kind": "cover",
+      "tag": "AI governance",
+      "title": "The EU delayed the hard part. One piece **didn't move**.",
+      "body": "Digital Omnibus on AI, adopted 29 June 2026",
+      "alt": "Cover: The EU delayed the hard part of AI regulation. One piece didn't move. Digital Omnibus on AI, adopted 29 June 2026."
+    },
+    {
+      "kind": "list",
+      "title": "What moved",
+      "items": [
+        "Standalone high-risk AI systems: 2 Aug 2026 → 2 Dec 2027",
+        "High-risk AI embedded in regulated products: → 2 Aug 2028",
+        "The obligations themselves (Articles 8–17): unchanged, only the dates moved"
+      ],
+      "alt": "What moved: standalone high-risk AI systems from 2 August 2026 to 2 December 2027. High-risk AI embedded in regulated products to 2 August 2028. The obligations themselves, Articles 8 to 17, are unchanged, only the dates moved."
+    },
+    {
+      "kind": "list",
+      "title": "What still lands 2 Aug 2026",
+      "items": [
+        "Disclose that a person is interacting with AI",
+        "Label deepfakes and synthetic content as artificial",
+        "Mark generated output as machine-made (grace period to Dec 2026 for live systems)"
+      ],
+      "alt": "What still lands 2 August 2026, Article 50: disclose that a person is interacting with AI, label deepfakes and synthetic content as artificial, and mark generated output as machine-made, with a grace period to December 2026 for systems already live."
+    },
+    {
+      "kind": "text",
+      "title": "Not a cancellation",
+      "body": "Risk management, human oversight and technical documentation are still coming. **Only the clock moved.**",
+      "alt": "Not a cancellation: risk management, human oversight and technical documentation are still coming. Only the clock moved."
+    },
+    {
+      "kind": "code",
+      "title": "Build the oversight before the deadline forces it",
+      "label": "wrapbox rule",
+      "code": "- id: output.customer-facing\n  title: \"Customer-facing AI output needs a human\"\n  when:\n    effect: comms.send\n    destination: [\"customer\", \"public\"]\n  decision: REVIEW\n  approvers: support-lead",
+      "alt": "A Wrapbox rule named output.customer-facing: when the agent sends a message to a customer or the public, the decision is REVIEW and the support lead must approve it first."
+    },
+    {
+      "kind": "cta",
+      "title": "The regulation's clock moved. The **expectation** didn't.",
+      "body": "A human sees what the agent does before it reaches someone, well before any deadline requires it.",
+      "alt": "Closing: the regulation's clock moved, the expectation didn't. A human sees what the agent does before it reaches someone, well before any deadline requires it."
+    }
+  ],
+  "sources": [
+    { "title": "Council of the EU — Artificial Intelligence: Council gives final green light to simplify and streamline rules (29 June 2026)", "url": "https://www.consilium.europa.eu/en/press/press-releases/2026/06/29/artificial-intelligence-council-gives-final-green-light-to-simplify-and-streamline-rules/" },
+    { "title": "Venvera — EU AI Act High-Risk Deadline: Why 2 August 2026 Moved to 2027", "url": "https://venvera.com/learn/eu-ai-act/high-risk-deadline-august-2026" }
+  ]
+}

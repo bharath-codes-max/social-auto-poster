@@ -1,0 +1,23 @@
+{
+  "id": "post-1",
+  "pillar": "security",
+  "topic": "owasp-llm-top-10-2026-prompt-injection-1",
+  "text": {
+    "linkedin": "OWASP just published the 2026 update to its LLM Top 10. Prompt injection is still #1. No change from the last two editions.\n\nThe reason it doesn't move: an LLM reads instructions and data in the same channel. There's no built-in line between \"what the user told me to do\" and \"text I happened to read.\"\n\nSo a webpage an agent summarizes, a file it opens, a ticket it reads, any of them can carry a line meant for the model, and the model can't always tell the difference.\n\nOWASP's own mitigation list doesn't lead with a filter. It leads with defense in depth: input validation, output filtering, privilege restriction, and a human in the loop for sensitive actions.\n\nThat last one is the part worth sitting with. If an injected instruction can only ever ask the agent to do things that already require a human sign-off, the injection stops mattering. It can say anything it wants.\n\nThat's the bet wrapboxd makes: don't try to catch every injected sentence. Gate what the agent is allowed to do, regardless of why it's trying to do it.\n\nSource: OWASP Top 10 for LLM Applications, 2026 edition.\n\n#AISecurity #PromptInjection #OWASP",
+    "instagram": "OWASP's 2026 LLM Top 10 is out. Prompt injection is #1 again, no change in three editions, because an LLM reads instructions and data through the same channel. A webpage it summarizes or a file it opens can carry a line meant for the model.\n\nOWASP's own fix doesn't lead with a filter. It leads with a human in the loop for sensitive actions. If the injected text can only ever ask for something that already needs sign-off, the injection stops mattering.\n\nSource: OWASP Top 10 for LLM Applications, 2026.\n\n#aisecurity #promptinjection #owasp #aiagents #wrapbox",
+    "x": "OWASP's 2026 LLM Top 10: prompt injection is #1 again, 3rd edition running.\n\nAn LLM reads instructions and data through the same channel. Any text it reads can carry a line meant for the model.\n\nOWASP's own fix: gate what the agent can DO, not just what it reads."
+  },
+  "slides": [
+    {
+      "kind": "text",
+      "theme": "dark",
+      "tag": "Agent security",
+      "title": "Prompt injection is **#1** again. Third year running.",
+      "body": "OWASP's 2026 LLM Top 10. The fix OWASP leads with isn't a filter — it's a human in the loop for sensitive actions.",
+      "alt": "Dark card: Prompt injection is #1 again, third year running. OWASP's 2026 LLM Top 10. The fix OWASP leads with isn't a filter, it's a human in the loop for sensitive actions."
+    }
+  ],
+  "sources": [
+    { "title": "Checkmarx — Breaking Down the OWASP Top 10 for LLM Applications", "url": "https://checkmarx.com/learn/breaking-down-the-owasp-top-10-for-llm-applications/" }
+  ]
+}
