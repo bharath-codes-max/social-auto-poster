@@ -19,5 +19,26 @@
     "pillar": "founder",
     "topic": "design-rule-fail-less-capable",
     "hook": "The design rule I check every Wrapbox decision against:"
+  },
+  {
+    "date": "2026-10-02",
+    "id": "post-1",
+    "pillar": "security",
+    "topic": "owasp-llm-top-10-2026-prompt-injection-1",
+    "hook": "OWASP just published the 2026 update to its LLM Top 10. Prompt injection is still #1. No change from the last two editions."
+  },
+  {
+    "date": "2026-10-02",
+    "id": "post-2",
+    "pillar": "governance",
+    "topic": "eu-ai-act-high-risk-delay-dec-2027",
+    "hook": "The EU just delayed the hard part of AI regulation. One piece of it didn't move."
+  },
+  {
+    "date": "2026-10-02",
+    "id": "post-3",
+    "pillar": "founder",
+    "topic": "every-rule-tested-both-directions",
+    "hook": "A rule that only blocks the thing you tested against isn't a rule. It's a screenshot."
   }
 ]
