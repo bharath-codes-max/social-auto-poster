@@ -1,8 +1,13 @@
 # Daily post agent
 
-This folder produces 3 posts a day for Bharath Salla (founder, Wrapbox) on LinkedIn, Instagram and
-X, and sends them to Buffer. It is separate from the wrapbox-prototype repo — never edit that repo
-from here (reading `~/Music/wrapbox-prototype/docs` for facts is fine).
+This folder produces 3 posts a day for the Wrapbox LinkedIn page and sends them to Buffer as
+drafts (Bharath taps publish in the Buffer app). It is separate from the wrapbox-prototype repo —
+never edit that repo from here (reading `~/Music/wrapbox-prototype/docs` for facts is fine).
+
+`config.json` controls what actually gets produced: `platforms` (currently `["linkedin"]` only —
+add `"instagram"`/`"x"` once those channels are connected in Buffer, see `npm run setup:buffer`),
+and `images` (`true`: render PNG cards + an MP4 slideshow for the carousel post and attach them;
+`false`: text only, fastest, for when the image pipeline needs debugging).
 
 ## Daily run — do exactly this
 
@@ -21,9 +26,13 @@ from here (reading `~/Music/wrapbox-prototype/docs` for facts is fine).
    - post-3 (19:30 IST): text-led, 1 card. Usually `founder` or `governance`.
    Use at least 2 different pillars across the day.
 5. `npm run check` → fix every ERROR and reread every WARN. Repeat until clean.
-6. `npm run render`, then open 2–3 of the PNGs with the Read tool and look at them: text must not
-   overflow, clip or crowd the footer. If it does, shorten the copy and re-render.
-7. `npm run publish`. Report which posts went to Buffer and flag anything that failed.
+6. If `config.json` has `"images": true`: `npm run render`, then open 2–3 of the PNGs with the Read
+   tool and look at them — text must not overflow, clip or crowd the footer. For the carousel post
+   run `node scripts/video.mjs $DATE post-2` and spot-check a few frames with ffmpeg `-vf select=…`
+   the way `render.mjs`'s own slides were checked. Shorten copy and re-render on any problem.
+7. `npm run publish`. This pushes images/video to the public GitHub repo (`config.json`'s
+   `githubRepo`) so Buffer can fetch them, then sends each post to Buffer as a draft (or scheduled,
+   if `AUTO_PUBLISH=true`). Report which posts went through and flag anything that failed.
 
 ## Post JSON shape
 
