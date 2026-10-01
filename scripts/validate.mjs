@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { postsDir, root, today } from './lib.mjs';
+import { postsDir, root, today, config } from './lib.mjs';
 
 const PILLARS = ['incident', 'security', 'governance', 'founder'];
 const KINDS = ['cover', 'text', 'quote', 'list', 'code', 'cta'];
@@ -28,6 +28,9 @@ async function urlOk(url) {
 
 export async function validateDay(date = today(), { checkLinks = true } = {}) {
   const errors = [], warns = [];
+  const cfg = config();
+  const images = cfg.images !== false;
+  const platforms = cfg.platforms || ['linkedin', 'instagram', 'x'];
   const dir = join(postsDir, date);
   if (!existsSync(dir)) return { errors: [`no folder ${dir}`], warns };
   const files = readdirSync(dir).filter(f => /^post-\d+\.json$/.test(f)).sort();
@@ -54,18 +57,20 @@ export async function validateDay(date = today(), { checkLinks = true } = {}) {
     }
 
     const slides = p.slides || [];
-    if (slides.length === 0) e('at least one slide required (Instagram needs an image)');
-    if (slides.length > 1) { carousels++; if (slides.length < 5 || slides.length > 8) e(`carousel must have 5–8 slides, has ${slides.length}`); }
-    slides.forEach((s, i) => {
-      if (!KINDS.includes(s.kind)) e(`slide ${i + 1}: kind must be one of ${KINDS.join(', ')}`);
-      if (!s.alt || s.alt.length < 10) e(`slide ${i + 1}: alt text required`);
-      const n = words(slideText(s));
-      if (n > 45) e(`slide ${i + 1}: ${n} words (max 45) — too dense to read on a phone`);
-      if (s.kind === 'code' && (s.code || '').split('\n').length > 14) e(`slide ${i + 1}: code > 14 lines`);
-      if (slides.length === 1 && s.title && words(s.title) > 16) w(`single card title ${words(s.title)} words (aim ≤ 14)`);
-    });
+    if (images) {
+      if (slides.length === 0) e('at least one slide required (Instagram needs an image)');
+      if (slides.length > 1) { carousels++; if (slides.length < 5 || slides.length > 8) e(`carousel must have 5–8 slides, has ${slides.length}`); }
+      slides.forEach((s, i) => {
+        if (!KINDS.includes(s.kind)) e(`slide ${i + 1}: kind must be one of ${KINDS.join(', ')}`);
+        if (!s.alt || s.alt.length < 10) e(`slide ${i + 1}: alt text required`);
+        const n = words(slideText(s));
+        if (n > 45) e(`slide ${i + 1}: ${n} words (max 45) — too dense to read on a phone`);
+        if (s.kind === 'code' && (s.code || '').split('\n').length > 14) e(`slide ${i + 1}: code > 14 lines`);
+        if (slides.length === 1 && s.title && words(s.title) > 16) w(`single card title ${words(s.title)} words (aim ≤ 14)`);
+      });
+    }
 
-    for (const plat of ['linkedin', 'instagram', 'x']) {
+    for (const plat of platforms) {
       const t = p.text?.[plat];
       if (!t) { e(`text.${plat} missing`); continue; }
       const len = plat === 'x' ? xLen(t) : t.length;
@@ -93,7 +98,7 @@ export async function validateDay(date = today(), { checkLinks = true } = {}) {
       else if (!r.ok) w(`source returned ${r.status} (likely bot-blocked, check manually): ${s.url}`);
     }
   }
-  if (files.length === 3 && carousels !== 1) errors.push(`need exactly 1 carousel per day, found ${carousels}`);
+  if (images && files.length === 3 && carousels !== 1) errors.push(`need exactly 1 carousel per day, found ${carousels}`);
   return { errors, warns };
 }
 

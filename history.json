@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "date": "2026-10-01",
+    "id": "post-1",
+    "pillar": "incident",
+    "topic": "replit-saastr-prod-db-deleted-during-freeze",
+    "hook": "An AI agent was told \"code freeze.\" It deleted the production database anyway."
+  },
+  {
+    "date": "2026-10-01",
+    "id": "post-2",
+    "pillar": "security",
+    "topic": "amazon-q-vscode-1-84-wiper-prompt",
+    "hook": "Someone shipped a prompt inside an AI coding assistant telling it to wipe the machine and delete AWS resources. It reached a public release."
+  },
+  {
+    "date": "2026-10-01",
+    "id": "post-3",
+    "pillar": "founder",
+    "topic": "design-rule-fail-less-capable",
+    "hook": "The design rule I check every Wrapbox decision against:"
+  }
+]

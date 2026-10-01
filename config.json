@@ -1,9 +1,17 @@
 {
   "githubRepo": "bharath-codes-max/social-auto-poster",
   "branch": "main",
-  "postTimesIST": ["09:00", "13:30", "19:30"],
+  "images": true,
+  "platforms": [
+    "linkedin"
+  ],
+  "postTimesIST": [
+    "09:00",
+    "13:30",
+    "19:30"
+  ],
   "channels": {
-    "linkedin": "",
+    "linkedin": "6abd458bea19ca0bde35f976",
     "instagram": "",
     "x": ""
   }
