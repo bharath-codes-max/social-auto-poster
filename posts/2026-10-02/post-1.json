@@ -10,8 +10,8 @@
   "slides": [
     {
       "kind": "text",
-      "theme": "dark",
-      "tag": "Agent security",
+      "theme": "clipping",
+      "tag": "Agent Security",
       "title": "Prompt injection is **#1** again. Third year running.",
       "body": "OWASP's 2026 LLM Top 10. The fix OWASP leads with isn't a filter — it's a human in the loop for sensitive actions.",
       "alt": "Dark card: Prompt injection is #1 again, third year running. OWASP's 2026 LLM Top 10. The fix OWASP leads with isn't a filter, it's a human in the loop for sensitive actions."

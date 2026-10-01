@@ -10,7 +10,7 @@ const esc = (s = '') => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': 
 const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b class="hl">$1</b>').replace(/\n/g, '<br>');
 
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:ital,wght@0,700;0,900;1,500&family=PT+Serif:ital@0;1&display=block');
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:${W}px;height:${H}px}
 body{font-family:Inter,-apple-system,sans-serif;background:#f6f7fb;color:#0b1020;-webkit-font-smoothing:antialiased}
@@ -48,6 +48,25 @@ pre .k{color:#7c98ff}pre .c{color:#6b7898}pre .v{color:#8ee6b0}
 .dark .who small{color:#8a93ab}.blue .who small{color:#dfe6ff}
 .pg{font:600 26px 'JetBrains Mono',monospace;color:#6b7390}.dark .pg{color:#aab3c9}.blue .pg{color:#fff}
 .swipe{font:600 26px 'JetBrains Mono',monospace;color:#1848ff}.dark .swipe{color:#7c98ff}.blue .swipe{color:#fff}
+
+/* newspaper-clipping format */
+.s.clipping{background:#f0e9d8;color:#1a1510;padding:72px 84px 150px}
+.s.clipping .grit{position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:radial-gradient(rgba(26,21,16,.05) 1px,transparent 1px);background-size:3px 3px}
+.s.clipping .vignette{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 160px rgba(26,21,16,.18)}
+.s.clipping .masthead{position:relative;text-align:center;border-bottom:4px double #1a1510;padding-bottom:22px;margin-bottom:22px}
+.s.clipping .masthead .name{font:900 46px/1 'Playfair Display',serif;letter-spacing:.01em;text-transform:uppercase}
+.s.clipping .masthead .tagline{font:italic 500 22px 'PT Serif',serif;color:#4a4036;margin-top:6px;letter-spacing:.02em}
+.s.clipping .dateline{position:relative;display:flex;justify-content:space-between;font:700 22px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:#4a4036;border-bottom:2px solid #1a1510;padding-bottom:18px;margin-bottom:40px}
+.s.clipping .body{gap:28px}
+.s.clipping h1{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.01em;line-height:1.05;color:#120d08}
+.s.clipping p.sub,.s.clipping p.txt{font-family:'PT Serif',serif;color:#2c251c}
+.s.clipping p.sub{font-style:italic;font-size:36px;line-height:1.45;border-top:2px solid #1a1510;border-bottom:2px solid #1a1510;padding:24px 0}
+.s.clipping .byline{font:700 24px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:#4a4036}
+.s.clipping .foot{border-top:2px solid #1a1510;padding-top:22px;left:84px;right:84px}
+.s.clipping .mark{background:#1a1510}
+.s.clipping .who small{color:#4a4036}
+.s.clipping .pg{color:#4a4036}
 `;
 
 const MARK = fill => `<svg viewBox="0 0 24 24" fill="none" stroke="${fill}" stroke-width="2.4" stroke-linejoin="round"><path d="M12 2.5 3.5 7v10L12 21.5 20.5 17V7z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></svg>`;
@@ -85,11 +104,15 @@ function slideHTML(sl, i, n, post) {
     default: throw new Error(`unknown slide kind "${sl.kind}" in ${post.id}`);
   }
   const right = n > 1 ? (i < n - 1 ? `<span class="swipe">swipe →</span>` : `<span class="pg">${i + 1}/${n}</span>`) : '';
+  const dateStr = new Date(post.date || Date.now()).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const top = theme === 'clipping'
+    ? `<div class="masthead"><div class="name">Wrapbox Intelligence</div><div class="tagline">Dispatches on AI agent security &amp; governance</div></div>
+       <div class="dateline"><span>${esc(tag || post.pillar)}</span><span>${esc(dateStr)}</span></div>`
+    : `<div class="grid"></div>${tag ? `<div class="tag"><i></i>${esc(tag)}</div>` : ''}`;
   return `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body>
-<div class="s ${theme}"><div class="grid"></div>
-${tag ? `<div class="tag"><i></i>${esc(tag)}</div>` : ''}
+<div class="s ${theme}">${theme === 'clipping' ? '<div class="grit"></div><div class="vignette"></div>' : ''}${top}
 <div class="body">${inner}</div>
-<div class="foot"><div class="who"><div class="mark">${MARK(theme === 'blue' ? '#1848ff' : '#fff')}</div><div>Bharath Salla<small>Founder, Wrapbox</small></div></div>${right}</div>
+<div class="foot"><div class="who"><div class="mark">${MARK(theme === 'blue' ? '#1848ff' : '#fff')}</div><div>${theme === 'clipping' ? '<span class="byline">By Bharath Salla</span>' : 'Bharath Salla'}<small>Founder, Wrapbox</small></div></div>${right}</div>
 </div></body></html>`;
 }
 
@@ -102,6 +125,7 @@ export async function renderDay(date = today()) {
   const out = [];
   for (const f of files) {
     const post = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+    post.date = `${date}T00:00:00Z`;
     const n = post.slides.length;
     for (let i = 0; i < n; i++) {
       await page.setContent(slideHTML(post.slides[i], i, n, post), { waitUntil: 'networkidle' });

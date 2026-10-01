@@ -60,6 +60,10 @@ export async function validateDay(date = today(), { checkLinks = true } = {}) {
     if (images) {
       if (slides.length === 0) e('at least one slide required (Instagram needs an image)');
       if (slides.length > 1) { carousels++; if (slides.length < 5 || slides.length > 8) e(`carousel must have 5–8 slides, has ${slides.length}`); }
+      // Each day's 3 posts must be 3 visibly different formats: clipping, video carousel, plain card.
+      if (p.id === 'post-1' && slides[0] && slides[0].theme !== 'clipping') e('post-1 must use theme "clipping" (the newspaper-style format)');
+      if (p.id === 'post-2' && slides.length < 2) e('post-2 must be the carousel (>1 slide, becomes the video post)');
+      if (p.id === 'post-3' && slides[0] && slides[0].theme === 'clipping') e('post-3 must not reuse the "clipping" theme — post-1 already uses it today');
       slides.forEach((s, i) => {
         if (!KINDS.includes(s.kind)) e(`slide ${i + 1}: kind must be one of ${KINDS.join(', ')}`);
         if (!s.alt || s.alt.length < 10) e(`slide ${i + 1}: alt text required`);
@@ -77,7 +81,8 @@ export async function validateDay(date = today(), { checkLinks = true } = {}) {
       const [lo, hi] = LIMITS[plat];
       if (len > hi) e(`text.${plat} is ${len} chars (max ${hi})`);
       if (len < lo) w(`text.${plat} is short (${len} chars)`);
-      const tags = (t.match(/(^|\s)#[\p{L}\d_]+/gu) || []).length;
+      // "#1", "#2" etc. are rankings, not hashtags — require at least one letter.
+      const tags = (t.match(/(^|\s)#[\p{L}\d_]*\p{L}[\p{L}\d_]*/gu) || []).length;
       if (tags > HASHTAGS[plat]) e(`text.${plat} has ${tags} hashtags (max ${HASHTAGS[plat]})`);
       if (plat === 'instagram' && /https?:\/\//.test(t)) e('instagram captions do not link — say "link in bio" instead');
     }

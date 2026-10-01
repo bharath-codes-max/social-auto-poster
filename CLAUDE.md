@@ -19,12 +19,17 @@ and `images` (`true`: render PNG cards + an MP4 slideshow for the carousel post 
    Open the sources and read them. Only use facts you read in a source; put every source in the
    post's `sources`. Prefer primary sources (company post-mortem, security advisory, regulator).
    If you can't verify something, drop it — a wrong fact under the founder's name is the worst outcome.
-4. Write `posts/$DATE/post-1.json`, `post-2.json`, `post-3.json`:
-   - post-1 (09:00 IST): text-led, 1 card. Usually `incident` or `security`.
-   - post-2 (13:30 IST): the carousel, 5–8 slides, teaching one mechanism. Include one `code`
-     slide with a real, valid rule/command.
-   - post-3 (19:30 IST): text-led, 1 card. Usually `founder` or `governance`.
-   Use at least 2 different pillars across the day.
+4. Write `posts/$DATE/post-1.json`, `post-2.json`, `post-3.json`. The 3 posts are 3 fixed, distinct
+   visual formats — never let two posts in a day look the same:
+   - post-1 (09:00 IST): 1 slide, `"theme": "clipping"` — renders as a newspaper-style dispatch.
+     Usually `incident` or `security`.
+   - post-2 (13:30 IST): the carousel, 5–8 slides, teaching one mechanism, published as a 20–25s
+     video (auto pan/zoom + crossfades), not static images. Include one `code` slide with a real,
+     valid rule/command.
+   - post-3 (19:30 IST): 1 slide, plain card (`light`, `dark` or `blue` theme — never `clipping`,
+     post-1 already used it). Usually `founder` or `governance`.
+   Use at least 2 different pillars across the day. `npm run check` enforces this format split —
+   it will error if post-1 isn't `clipping`, post-3 reuses `clipping`, or post-2 isn't a carousel.
 5. `npm run check` → fix every ERROR and reread every WARN. Repeat until clean.
 6. If `config.json` has `"images": true`: `npm run render`, then open 2–3 of the PNGs with the Read
    tool and look at them — text must not overflow, clip or crowd the footer. For the carousel post
@@ -44,7 +49,7 @@ and `images` (`true`: render PNG cards + an MP4 slideshow for the carousel post 
   "text": { "linkedin": "…", "instagram": "…", "x": "…" },
   "slides": [
     { "kind": "cover | text | quote | list | code | cta", "title": "…", "body": "…",
-      "items": ["…"], "code": "…", "label": "…", "tag": "…", "theme": "light | dark | blue",
+      "items": ["…"], "code": "…", "label": "…", "tag": "…", "theme": "light | dark | blue | clipping",
       "alt": "what the image says, for screen readers" }
   ],
   "sources": [{ "title": "…", "url": "https://…" }]
@@ -52,4 +57,5 @@ and `images` (`true`: render PNG cards + an MP4 slideshow for the carousel post 
 ```
 
 `**word**` in slide text highlights it in brand blue. Default themes: cover=dark, cta=blue,
-others light. Keep slides ≤ 40 words.
+others light. `clipping` is reserved for post-1 (see above) — a newspaper-style masthead, dateline
+and serif headline; set it explicitly via `theme`, it's never a default. Keep slides ≤ 40 words.
